@@ -71,8 +71,8 @@ Desenvolver uma plataforma web capaz de:
 
 - Git
 - GitHub
-- [Figma / Canva]
-- [Trello / ferramenta utilizada]
+- Figma/Canva
+- Trello/Notion
 
 ---
 
