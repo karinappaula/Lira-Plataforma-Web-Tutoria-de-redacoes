@@ -42,13 +42,14 @@ Desenvolver uma plataforma web capaz de:
 
 ## 👥 Equipe
 
-| Integrante | Papel no Scrum | Área | Responsabilidades |
-|---|---|---|---|
-| **Karina Pereira** | Product Owner (PO) | Backend | Priorização e organização dos requisitos, gerenciamento do Product Backlog e desenvolvimento Backend |
-| **Arthur Marinho** | Scrum Master | Backend | Facilitação da metodologia Scrum, acompanhamento das Sprints e desenvolvimento Backend |
-| **Gabriella Sanchez** | Desenvolvedora | Frontend | Desenvolvimento e implementação das interfaces Frontend |
-| **Maria Luiza Zanon** | Desenvolvedora | Frontend | Desenvolvimento e implementação das interfaces Frontend |
-| **Heloisa Oliveira** | Desenvolvedora / Documentação | Frontend | Desenvolvimento Frontend, organização e entrega de documentos e gerenciamento e atualização da monografia |
+| Integrante            | Área                    | Responsabilidades                                                                                         |
+| --------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Karina Pereira**    | Backend                 | Desenvolvimento Backend                                                                                   |
+| **Arthur Marinho**    | Backend                 | Desenvolvimento Backend                                                                                   |
+| **Gabriella Sanchez** | Frontend                | Desenvolvimento Frontend                                                                                  |
+| **Maria Luiza Zanon** | Frontend                | Desenvolvimento Frontend                                                                                  |
+| **Heloisa Oliveira**  | Frontend / Documentação | Desenvolvimento Frontend, organização e entrega de documentos e gerenciamento e atualização da monografia |
+
 
 ---
 
