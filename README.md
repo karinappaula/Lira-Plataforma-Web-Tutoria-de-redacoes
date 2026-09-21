@@ -1,4 +1,4 @@
-# 📚 Tutoria de Redações
+# 📚LIRA-Tutoria de Redações
 
 ### Plataforma Web de Tutoria de Redações e Preparatório para Vestibulares
 
