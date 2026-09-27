@@ -1,0 +1,192 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ============ FUNÇÕES AUXILIARES ============
+
+    function estaAutenticado() {
+      return request.auth != null;
+    }
+
+    function meuUsuarioExiste() {
+      return exists(/databases/$(database)/documents/usuarios/$(request.auth.uid));
+    }
+
+    function meuUsuario() {
+      return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data;
+    }
+
+    function minhaRole() {
+      return meuUsuario().role;
+    }
+
+    function souAdmin() {
+      return estaAutenticado() && meuUsuarioExiste() && minhaRole() == "admin";
+    }
+
+    function souTutor() {
+      return estaAutenticado() && meuUsuarioExiste() && minhaRole() == "tutor";
+    }
+
+    function souAluno() {
+      return estaAutenticado() && meuUsuarioExiste() && minhaRole() == "aluno";
+    }
+
+    // ============ USUÁRIOS ============
+
+    match /usuarios/{uid} {
+      allow read: if estaAutenticado() && (
+        request.auth.uid == uid ||
+        souAdmin() ||
+        (souTutor() && resource.data.tutorId == request.auth.uid)
+      );
+
+      allow create: if souAdmin() || (
+        estaAutenticado() &&
+        request.auth.uid == uid &&
+        request.resource.data.conviteId != null &&
+        get(/databases/$(database)/documents/convites/$(request.resource.data.conviteId)).data.usado == false &&
+        request.resource.data.role == get(/databases/$(database)/documents/convites/$(request.resource.data.conviteId)).data.role
+      );
+
+      allow update, delete: if souAdmin();
+    }
+
+    // ============ CONVITES ============
+
+    match /convites/{codigo} {
+      allow get: if true;
+
+      allow create: if souAdmin() || (
+        souTutor() &&
+        request.resource.data.role == "aluno" &&
+        request.resource.data.tutorId == request.auth.uid &&
+        request.resource.data.turmaId == meuUsuario().turmaId
+      );
+
+      allow update: if estaAutenticado() &&
+        resource.data.usado == false &&
+        request.resource.data.usado == true &&
+        request.resource.data.role == resource.data.role &&
+        request.resource.data.get('turmaId', null) == resource.data.get('turmaId', null) &&
+        request.resource.data.get('tutorId', null) == resource.data.get('tutorId', null);
+
+      allow delete: if souAdmin();
+      allow list: if souAdmin();
+    }
+
+    // ============ TURMAS ============
+
+    match /turmas/{turmaId} {
+      allow read: if souAdmin() ||
+        (souTutor() && (
+          request.auth.uid in resource.data.tutorIds ||
+          meuUsuario().turmaId == turmaId
+        )) ||
+        (souAluno() && meuUsuario().turmaId == turmaId);
+
+      allow create, delete: if souAdmin();
+
+      allow update: if souAdmin() || (
+        estaAutenticado() &&
+        request.resource.data.tutorIds == resource.data.tutorIds.concat([request.auth.uid]) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(["tutorIds"])
+      );
+    }
+
+    // ============ REDAÇÕES ============
+
+    match /redacoes/{redacaoId} {
+      allow read: if souAdmin() ||
+        (souAluno() && resource.data.alunoId == request.auth.uid) ||
+        (souTutor() && resource.data.tutorId == request.auth.uid);
+
+      allow create: if souAluno() && request.resource.data.alunoId == request.auth.uid;
+
+      allow update: if souAdmin() ||
+        (souAluno() &&
+          resource.data.alunoId == request.auth.uid &&
+          resource.data.status in ["rascunho", "enviada"]) ||
+        (souTutor() && resource.data.tutorId == request.auth.uid);
+
+      allow delete: if souAdmin();
+    }
+
+    // ============ FICHAS DE CORREÇÃO ============
+
+    match /fichasCorrecao/{fichaId} {
+      allow read: if souAdmin() ||
+        (souTutor() && resource.data.tutorId == request.auth.uid) ||
+        (souAluno() &&
+          resource.data.alunoId == request.auth.uid &&
+          resource.data.status == "aprovada");
+
+      allow create: if souTutor() && request.resource.data.tutorId == request.auth.uid;
+
+      allow update: if souAdmin() ||
+        (souTutor() &&
+          resource.data.tutorId == request.auth.uid &&
+          resource.data.status != "aprovada");
+
+      allow delete: if souAdmin();
+    }
+
+    // ============ TAREFAS ============
+
+    match /tarefas/{tarefaId} {
+      allow read: if souAdmin() ||
+        (souTutor() && resource.data.tutorId == request.auth.uid) ||
+        (souAluno() && resource.data.tutorId == meuUsuario().tutorId);
+
+      allow create: if souTutor() && request.resource.data.tutorId == request.auth.uid;
+
+      allow update, delete: if souAdmin() ||
+        (souTutor() && resource.data.tutorId == request.auth.uid);
+    }
+
+    // ============ QUIZZES ============
+
+    match /quizzes/{quizId} {
+      allow read: if estaAutenticado();
+      allow create, update, delete: if souAdmin();
+    }
+
+    // ============ TENTATIVAS DE QUIZ ============
+
+    match /tentativas/{tentativaId} {
+      allow read: if souAdmin() ||
+        (souAluno() && resource.data.alunoId == request.auth.uid) ||
+        (souTutor() && resource.data.alunoId != null &&
+          get(/databases/$(database)/documents/usuarios/$(resource.data.alunoId)).data.tutorId == request.auth.uid);
+
+      allow create: if souAluno() && request.resource.data.alunoId == request.auth.uid;
+
+      allow update: if souAluno() &&
+        resource.data.alunoId == request.auth.uid &&
+        resource.data.status == "em_andamento";
+
+      allow delete: if souAdmin();
+    }
+
+    // ============ QUESTÕES ============
+
+    match /questoes/{questaoId} {
+      allow read: if estaAutenticado();
+      allow create, update, delete: if souAdmin();
+    }
+
+    // ============ CADERNO DE ERROS ============
+
+    match /cadernoErros/{registroId} {
+      allow read: if souAdmin() ||
+        (souAluno() && resource.data.alunoId == request.auth.uid);
+
+      allow create, update: if souAluno() &&
+        request.resource.data.alunoId == request.auth.uid;
+
+       allow delete: if souAdmin() ||
+        (souAluno() && resource.data.alunoId == request.auth.uid);
+    }
+  }
+}
