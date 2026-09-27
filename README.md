@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚LIRA-Tutoria de Redações
 
-## Getting Started
+### Plataforma Web de Tutoria de Redações e Preparatório para Vestibulares
 
-First, run the development server:
+Projeto desenvolvido como **Trabalho de Conclusão de Curso (TCC)** do curso Técnico em Desenvolvimento de Sistemas, com aplicação no contexto educacional do **SESI**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Sobre o Projeto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+O **Tutoria de Redações** é uma plataforma web desenvolvida com o objetivo de auxiliar no acompanhamento pedagógico de redações e na preparação dos alunos para vestibulares e processos seletivos.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+A plataforma busca organizar o processo de acompanhamento das redações, desde o envio pelo aluno até a correção e acompanhamento do desempenho, além de disponibilizar recursos voltados à preparação para provas objetivas.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🎯 Objetivo
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Desenvolver uma plataforma web capaz de:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Organizar o processo de envio e acompanhamento de redações;
+- Facilitar o trabalho dos tutores durante o processo de correção;
+- Permitir o acompanhamento do desempenho dos alunos;
+- Auxiliar os estudantes na preparação para vestibulares;
+- Disponibilizar atividades e simulados de questões objetivas;
+- Centralizar informações relacionadas ao acompanhamento pedagógico.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contexto do Projeto
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Informação | Descrição |
+|---|---|
+| **Projeto** | Trabalho de Conclusão de Curso |
+| **Curso** | Técnico em Desenvolvimento de Sistemas |
+| **Instituição de Ensino** | SENAI |
+| **Aplicação** | SESI |
+| **Área** | Educação e Tecnologia |
+| **Metodologia** | Scrum |
+
+---
+
+## 👥 Equipe
+
+| Integrante            | Área                    | Responsabilidades                                                                                         |
+| --------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------- |
+| **Karina Pereira**    | Backend                 | Desenvolvimento Backend                                                                                   |
+| **Arthur Marinho**    | Backend                 | Desenvolvimento Backend                                                                                   |
+| **Gabriella Sanchez** | Frontend                | Desenvolvimento Frontend                                                                                  |
+| **Maria Luiza Zanon** | Frontend                | Desenvolvimento Frontend                                                                                  |
+| **Heloisa Oliveira**  | Frontend / Documentação | Desenvolvimento Frontend, organização e entrega de documentos e gerenciamento e atualização da monografia |
+
+
+---
+
+## 🛠️ Tecnologias
+
+### Frontend
+
+- [Tecnologia utilizada]
+
+### Backend
+
+- [Tecnologia utilizada]
+
+### Banco de Dados
+
+- [Tecnologia utilizada]
+
+### Ferramentas
+
+- Git
+- GitHub
+- Figma/Canva
+- Trello/Notion
+
+---
+
+## Autores
+
+- **Karina Pereira**
+- **Arthur Marinho**
+- **Gabriella Sanchez**
+- **Maria Luiza Zanon**
+- **Heloisa Oliveira**
+
+**Curso Técnico em Desenvolvimento de Sistemas — SENAI**
+
+---
+
+🎓 **Projeto desenvolvido para fins acadêmicos como Trabalho de Conclusão de Curso.**
